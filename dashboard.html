@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Панель управления</title>
+</head>
+<body class="bg-[#0f0f0f] text-stone-200">
+    <nav class="p-6 border-b border-stone-800 flex justify-between items-center">
+        <h1 class="text-xl font-bold uppercase tracking-widest">Админ-панель</h1>
+        <a href="index.html" class="text-stone-500 hover:text-white">На сайт &rarr;</a>
+    </nav>
+
+    <main class="max-w-4xl mx-auto py-12 px-6">
+        <div class="bg-stone-900 p-8 border border-stone-800 rounded-xl mb-10">
+            <h3 class="text-xl mb-6 font-serif">Добавить новое изделие</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input type="text" placeholder="Название изделия" class="bg-black border border-stone-800 p-3 rounded outline-none focus:border-[#c27854]">
+                <input type="number" placeholder="Цена (₽)" class="bg-black border border-stone-800 p-3 rounded outline-none focus:border-[#c27854]">
+                <textarea placeholder="Описание" class="bg-black border border-stone-800 p-3 rounded outline-none focus:border-[#c27854] md:col-span-2"></textarea>
+                <input type="text" placeholder="Ссылка на фото" class="bg-black border border-stone-800 p-3 rounded outline-none focus:border-[#c27854] md:col-span-2">
+                <button class="bg-[#c27854] py-3 font-bold uppercase tracking-widest hover:bg-orange-700 transition md:col-span-2">
+                    Сохранить в базу
+                </button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
