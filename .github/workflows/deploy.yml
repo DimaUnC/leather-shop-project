@@ -1,4 +1,4 @@
-name: Deploy Leather Shop
+name: Deploy to Nettop via VPS Tunnel
 
 on:
   push:
@@ -7,22 +7,31 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Deploy to VPS
+      - name: SSH Deploy to Nettop
         uses: appleboy/ssh-action@master
         with:
+          # IP твоего VPS
           host: ${{ secrets.HOST }}
+          # Юзер именно НЕТТОПА (не VPS!)
           username: ${{ secrets.USERNAME }}
+          # Твой приватный ключ id_rsa_github
           key: ${{ secrets.SSH_KEY }}
+          # Тот самый порт туннеля, который мы выбрали
+          port: 61234
+          # Если ключ с паролем (надеюсь, нет)
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
+            echo "--- Starting Deploy on Nettop ---"
             cd /home/dima/leather_shop
-            if [ ! -d ".git" ]; then
-              git clone https://github.com/${{ github.repository }}.git .
-            else
-              git pull origin main
-            fi
-            # Если нужно что-то еще (например, рестарт fpm или права)
-            chmod -R 755 /home/dima/leather_shop
+            
+            # На случай, если папка пустая, иницилизируем или просто тянем
+            git pull origin main
+            
+            # Ставим правильные права на файлы
+            chmod -R 755 .
+            echo "--- Deploy Success! ---"
