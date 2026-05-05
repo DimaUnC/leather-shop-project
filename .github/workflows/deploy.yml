@@ -1,0 +1,33 @@
+name: Deploy Leather Shop
+
+on:
+  push:
+    branches: [ main ] # или master, смотря какая у тебя главная
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Nettopp
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            # Заходим в папку (создаем если нет)
+            mkdir -p /home/dima/leather_shop
+            cd /home/dima/leather_shop
+            
+            # Если гита внутри нет - инициализируем, если есть - пуллим
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/${{ github.repository }}.git .
+            else
+              git pull origin main
+            fi
+            
+            # На всякий случай даем права на файлы
+            chmod -R 755 /home/dima/leather_shop
