@@ -15,23 +15,26 @@ jobs:
       - name: SSH Deploy to Nettop
         uses: appleboy/ssh-action@master
         with:
-          # IP твоего VPS
           host: ${{ secrets.HOST }}
-          # Юзер именно НЕТТОПА (не VPS!)
           username: ${{ secrets.USERNAME }}
-          # Твой приватный ключ id_rsa_github
           key: ${{ secrets.SSH_KEY }}
-          # Тот самый порт туннеля, который мы выбрали
           port: 61234
-          # Если ключ с паролем (надеюсь, нет)
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             echo "--- Starting Deploy on Nettop ---"
             cd /home/dima/leather_shop
             
-            # На случай, если папка пустая, иницилизируем или просто тянем
+            # 1. Затягиваем свежий код
             git pull origin main
             
-            # Ставим правильные права на файлы
+            # 2. Устанавливаем зависимости (Phinx и прочее)
+            # Если composer не установлен глобально, используй php composer.phar
+            composer install --no-dev --no-interaction --optimize-autoloader
+            
+            # 3. Накатываем миграции базы данных
+            # Флаг -e production берет настройки из секции production в phinx.php
+            php vendor/bin/phinx migrate -e production
+            
+            # 4. Правим права (опционально, но полезно)
             chmod -R 755 .
-            echo "--- Deploy Success! ---"
+            
+            echo "--- All systems go! Deploy & Migrations Success! ---"
