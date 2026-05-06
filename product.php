@@ -12,7 +12,7 @@ if (!$p) die("Товар не найден. <a href='index.php'>Назад</a>")
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($p['title']) ?> | Nordic Leather</title>
+    <title><?= htmlspecialchars($p['title']) ?> | Lemoyne Leather</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto+Mono&display=swap');
@@ -24,7 +24,7 @@ if (!$p) die("Товар не найден. <a href='index.php'>Назад</a>")
         <a href="index.php" class="text-stone-500 hover:text-[#c27854] font-mono text-sm block mb-10">← ВЕРНУТЬСЯ В КАТАЛОГ</a>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <img src="<?= htmlspecialchars($p['image']) ?>" class="w-full rounded-2xl border border-stone-800">
+            <img src="<?= htmlspecialchars($p['image']) ?>" class="w-full rounded-2xl border border-stone-800 shadow-2xl">
             <div>
                 <h1 class="text-5xl mb-4"><?= htmlspecialchars($p['title']) ?></h1>
                 <p class="text-[#c27854] text-3xl font-mono mb-8"><?= number_format($p['price'], 0, '', ' ') ?> ₽</p>
@@ -36,7 +36,9 @@ if (!$p) die("Товар не найден. <a href='index.php'>Назад</a>")
                     <p class="leading-relaxed italic"><?= nl2br(htmlspecialchars($p['description'])) ?></p>
                 </div>
 
-                <button class="w-full mt-10 bg-[#c27854] py-4 rounded-xl text-white font-bold tracking-widest hover:bg-orange-700 transition">ЗАКАЗАТЬ В ТЕЛЕГРАМ</button>
+                <a href="https://t.me/lemoyne_official" target="_blank" class="inline-block w-full text-center mt-10 bg-[#c27854] py-4 rounded-xl text-white font-bold tracking-widest hover:bg-orange-700 transition shadow-lg shadow-orange-900/20">
+                    ЗАКАЗАТЬ В ТЕЛЕГРАМ
+                </a>
             </div>
         </div>
     </div>

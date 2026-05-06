@@ -1,5 +1,5 @@
 <?php
-// 1. АВТОРИЗАЦИЯ
+// 1. АВТОРИЗАЦИЯ (Твой Basic Auth)
 $user = 'admin'; 
 $pass = 'admin123'; 
 
@@ -16,7 +16,6 @@ if (!isset($_SERVER['PHP_AUTH_USER']) ||
 // 2. ПОДКЛЮЧЕНИЕ К БАЗЕ
 $db = new SQLite3('database.db');
 
-// Создаем таблицу, если её вдруг еще нет (на всякий случай при первом запуске)
 $db->exec("CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
@@ -74,9 +73,17 @@ $results = $db->query('SELECT * FROM products ORDER BY id DESC');
                 <h1 class="text-3xl font-bold tracking-tight text-[#d4a373]">Панель управления</h1>
                 <p class="text-stone-500 text-sm">Управление витриной Lemoyne Leather</p>
             </div>
-            <a href="index.php" class="px-6 py-2 border border-[#d4a373] text-[#d4a373] rounded-full hover:bg-[#d4a373] hover:text-[#121212] transition duration-300 text-sm font-semibold uppercase tracking-widest">
-                ← В каталог
-            </a>
+            
+            <div class="flex items-center gap-3">
+                <a href="https://t.me/lemoyne_official" target="_blank" class="px-5 py-2 bg-[#24A1DE]/10 text-[#24A1DE] rounded-full hover:bg-[#24A1DE] hover:text-white transition duration-300 text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0C5.352 0 0 5.352 0 12s5.352 12 12 12 12-5.352 12-12S18.592 0 11.944 0zm5.64 8.244l-1.92 9.048c-.144.648-.528.804-1.08.492l-2.928-2.16-1.416 1.368c-.156.156-.288.288-.588.288l.216-3.048 5.544-5.016c.24-.216-.048-.336-.372-.12l-6.852 4.308-2.952-.924c-.636-.204-.648-.636.132-.948l11.532-4.44c.528-.192.996.12.792.948z"/></svg>
+                    Telegram Канал
+                </a>
+
+                <a href="index.php" class="px-6 py-2 border border-[#d4a373] text-[#d4a373] rounded-full hover:bg-[#d4a373] hover:text-[#121212] transition duration-300 text-sm font-semibold uppercase tracking-widest">
+                    ← В каталог
+                </a>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 gap-10">
@@ -152,3 +159,9 @@ $results = $db->query('SELECT * FROM products ORDER BY id DESC');
                             <?php endwhile; ?>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
